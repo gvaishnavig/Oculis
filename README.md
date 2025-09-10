@@ -1,4 +1,4 @@
-#Oculis – AI-Powered OCT Retinal Analysis Platform
+# Oculis – AI-Powered OCT Retinal Analysis Platform
 
 Oculis is an AI-driven platform designed to assist in the **early detection and classification of retinal diseases** using **Optical Coherence Tomography (OCT) scans**. The system leverages **deep learning models** to automatically classify OCT images into four categories: **Normal, CNV (Choroidal Neovascularization), DME (Diabetic Macular Edema), and Drusen**.
 
