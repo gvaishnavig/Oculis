@@ -1,0 +1,19 @@
+
+
+body{
+  margin:0;
+  font-family:system-ui,sans-serif;
+  color: #ffffff;
+  
+}
+
+.nav-link{
+  margin-left: 20px;
+  margin-right:40px;
+  
+ 
+}
+.nav-link:hover{
+  color:#ffffff;
+  text-shadow:0 0 8px #ffffff;
+}
