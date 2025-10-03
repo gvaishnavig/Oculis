@@ -5,7 +5,7 @@ import Navbar from "../Components/Navbar";
 function HomePage(){
     return(
     <>
-       <Navbar/>
+      
        <Eye/>
     </>
        

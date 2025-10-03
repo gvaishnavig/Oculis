@@ -1,3 +1,4 @@
+import {Link} from "react-router-dom";
 function Navbar() {
   return (
     <nav
@@ -11,6 +12,8 @@ function Navbar() {
         minHeight: "60px",     // smaller height
       }}
     >
+
+       
       <div className="container">
         <a className="navbar-brand" href="#">
           <img
@@ -38,56 +41,49 @@ function Navbar() {
         >
           <ul className="navbar-nav mb-lg-0 gap-2">
             <li className="nav-item">
-              <a
+              <Link to ="/"
                 className="nav-link fs-6"
                 style={{
                   color: "#f5f5f5",
                   transition: "all 0.3s ease",
                   padding: "0.3rem 0.8rem", // reduced link padding
-                }}
-                href="#"
-              >
+                }}>
                 Home
-              </a>
+              </Link>
             </li>
             <li className="nav-item">
-              <a
+              <Link to ="/About"
                 className="nav-link fs-6"
                 style={{
                   color: "#f5f5f5",
                   transition: "all 0.3s ease",
                   padding: "0.3rem 0.8rem",
-                }}
-                href="#"
-              >
+                }}>
                 About
-              </a>
+              </Link>
             </li>
             <li className="nav-item">
-              <a
+              <Link to="/FAQ"
                 className="nav-link fs-6"
                 style={{
                   color: "#f5f5f5",
                   transition: "all 0.3s ease",
                   padding: "0.3rem 0.8rem",
-                }}
-                href="#"
-              >
+                }}>
+              
                 FAQ
-              </a>
+              </Link>
             </li>
             <li className="nav-item">
-              <a
+              <Link to="/contact"
                 className="nav-link fs-6"
                 style={{
                   color: "#f5f5f5",
                   transition: "all 0.3s ease",
                   padding: "0.3rem 0.8rem",
-                }}
-                href="#"
-              >
+                }}>
                 Contact
-              </a>
+              </Link>
             </li>
           </ul>
         </div>
