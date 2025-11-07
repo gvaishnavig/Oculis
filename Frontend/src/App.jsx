@@ -1,13 +1,11 @@
-<<<<<<< HEAD
+ 
 import './App.css';
 import { Routes, Route, useLocation } from "react-router-dom";
 import HomePage from './Landing_page/HomePage';
-=======
 
 import './App.css'
 import { Route,Routes } from "react-router-dom";
 import'./Landing_page/HomePage';
->>>>>>> ba42d8b84fabb50a140a083e93d81684d5620698
 import About from './Landing_page/About';
 import Login from './Landing_page/Login';
 import ContactPage from './Landing_page/ContactPage';
