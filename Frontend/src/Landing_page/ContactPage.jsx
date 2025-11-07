@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React from "react";
 
 const Contact = () => {
@@ -88,3 +89,5 @@ const Contact = () => {
 };
 
 export default Contact;
+=======
+>>>>>>> ba42d8b84fabb50a140a083e93d81684d5620698
