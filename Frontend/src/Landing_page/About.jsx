@@ -1,10 +1,6 @@
-<<<<<<< HEAD
+
 import React from "react";
-=======
-<<<<<<< HEAD
-=======
-import React from 'react';
->>>>>>> ba42d8b84fabb50a140a083e93d81684d5620698
+
 
 const About = () => {
   const styles = {
@@ -194,10 +190,3 @@ const About = () => {
 };
 
 export default About;
-<<<<<<< HEAD
-=======
-
-
-
->>>>>>> cc2e2582ce3df567769b892cef93533889b23f19
->>>>>>> ba42d8b84fabb50a140a083e93d81684d5620698

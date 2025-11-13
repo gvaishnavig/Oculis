@@ -1,92 +1,190 @@
-
 import React from "react";
 
 const Contact = () => {
   const styles = {
     container: {
-      fontFamily: "'Poppins', sans-serif",
-      background: "linear-gradient(135deg, #e0f7e9, #ffffff)",
-      height: "100vh",
+      minHeight: "100vh",
+      display: "flex",
+      flexDirection: "column",
+      backgroundColor: "#f8fbfa",
+      fontFamily: "Inter, 'Noto Sans', sans-serif",
+      overflowX: "hidden",
+    },
+    main: {
       display: "flex",
       justifyContent: "center",
+      padding: "2rem 10rem",
+      flex: 1,
+    },
+    contentContainer: {
+      maxWidth: "512px",
+      width: "100%",
+      display: "flex",
+      flexDirection: "column",
       alignItems: "center",
     },
-    card: {
-      backgroundColor: "#ffffff",
-      borderRadius: "12px",
-      padding: "40px",
-      width: "400px",
-      boxShadow: "0 8px 20px rgba(0,0,0,0.1)",
-      textAlign: "center",
-    },
-    title: {
+    heading: {
+      color: "#0e1b15",
       fontSize: "28px",
-      fontWeight: "600",
-      marginBottom: "20px",
-      color: "#2e7d32",
+      fontWeight: "700",
+      textAlign: "center",
+      paddingBottom: "1rem",
+      paddingTop: "2rem",
+    },
+    label: {
+      color: "#0e1b15",
+      fontSize: "1rem",
+      fontWeight: "500",
+      marginBottom: "0.5rem",
+    },
+    inputContainer: {
+      width: "100%",
+      maxWidth: "480px",
+      marginBottom: "1.5rem",
     },
     input: {
       width: "100%",
-      padding: "12px",
-      margin: "10px 0",
-      borderRadius: "6px",
-      border: "1px solid #c8e6c9",
-      fontSize: "14px",
+      height: "3.5rem",
+      borderRadius: "12px",
+      border: "1px solid #d1e6dd",
+      backgroundColor: "#f8fbfa",
+      color: "#0e1b15",
+      padding: "15px",
+      fontSize: "1rem",
       outline: "none",
-      backgroundColor: "#f1f8f3",
     },
-    button: {
+    textarea: {
       width: "100%",
-      padding: "12px",
-      marginTop: "15px",
-      backgroundColor: "#66bb6a",
-      color: "white",
+      minHeight: "140px",
+      borderRadius: "12px",
+      border: "1px solid #d1e6dd",
+      backgroundColor: "#f8fbfa",
+      color: "#0e1b15",
+      padding: "15px",
+      fontSize: "1rem",
+      outline: "none",
+      resize: "none",
+    },
+    submitButton: {
+      width: "100%",
+      maxWidth: "480px",
+      backgroundColor: "#1ab773",
+      color: "#0e1b15",
       border: "none",
-      borderRadius: "6px",
-      fontSize: "16px",
+      borderRadius: "12px",
+      padding: "0.75rem",
+      fontWeight: "700",
+      cursor: "pointer",
+      fontSize: "0.9rem",
+      marginTop: "0.5rem",
+    },
+    clinicTitle: {
+      color: "#0e1b15",
+      fontSize: "1.125rem",
+      fontWeight: "700",
+      paddingTop: "1.5rem",
+      paddingBottom: "0.5rem",
+    },
+    clinicText: {
+      color: "#0e1b15",
+      fontSize: "1rem",
+      textAlign: "center",
+      marginBottom: "0.5rem",
+    },
+    socialContainer: {
+      display: "flex",
+      justifyContent: "center",
+      gap: "1.5rem",
+      padding: "1rem",
+    },
+    socialIconBox: {
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      gap: "0.5rem",
+      backgroundColor: "#f8fbfa",
+      padding: "0.75rem",
+      borderRadius: "10px",
+      width: "80px",
+    },
+    iconCircle: {
+      backgroundColor: "#e8f3ee",
+      borderRadius: "50%",
+      padding: "0.6rem",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+    },
+    socialLabel: {
+      color: "#0e1b15",
+      fontSize: "0.9rem",
       fontWeight: "500",
-      cursor: "pointer",
-      transition: "0.3s",
-    },
-    toggleText: {
-      marginTop: "20px",
-      fontSize: "14px",
-      color: "#555",
-    },
-    link: {
-      color: "#388e3c",
-      cursor: "pointer",
-      textDecoration: "underline",
-      marginLeft: "4px",
     },
   };
 
-  const [isLogin, setIsLogin] = React.useState(true);
-
-  const handleToggle = () => setIsLogin(!isLogin);
-
   return (
     <div style={styles.container}>
-      <div style={styles.card}>
-        <h2 style={styles.title}>{isLogin ? "Login to Oculis" : "Register for Oculis"}</h2>
-        {!isLogin && (
-          <input type="text" placeholder="Full Name" style={styles.input} />
-        )}
-        <input type="email" placeholder="Email" style={styles.input} />
-        <input type="password" placeholder="Password" style={styles.input} />
-        <button style={styles.button}>
-          {isLogin ? "Login" : "Register"}
-        </button>
-        <p style={styles.toggleText}>
-          {isLogin ? "Don't have an account?" : "Already have an account?"}
-          <span style={styles.link} onClick={handleToggle}>
-            {isLogin ? "Register" : "Login"}
-          </span>
-        </p>
-      </div>
+      {/* Main Content */}
+      <main style={styles.main}>
+        <div style={styles.contentContainer}>
+          <h2 style={styles.heading}>Contact Us</h2>
+
+          {/* Name */}
+          <div style={styles.inputContainer}>
+            <label style={styles.label}>Name</label>
+            <input type="text" placeholder="Your Name" style={styles.input} />
+          </div>
+
+          {/* Email */}
+          <div style={styles.inputContainer}>
+            <label style={styles.label}>Email</label>
+            <input type="email" placeholder="Your Email" style={styles.input} />
+          </div>
+
+          {/* Subject */}
+          <div style={styles.inputContainer}>
+            <label style={styles.label}>Subject</label>
+            <input type="text" placeholder="Subject" style={styles.input} />
+          </div>
+
+          {/* Message */}
+          <div style={styles.inputContainer}>
+            <label style={styles.label}>Message</label>
+            <textarea placeholder="Your Message" style={styles.textarea} />
+          </div>
+
+          {/* Send Button */}
+          <button style={styles.submitButton}>Send Message</button>
+
+          {/* Clinic Info */}
+          <h3 style={styles.clinicTitle}>Our Clinic</h3>
+          <p style={styles.clinicText}>
+            456 Health Avenue, Suite 789 Medical City, CA 91234
+          </p>
+          <p style={styles.clinicText}>(555) 987-6543</p>
+          <p style={styles.clinicText}>info@oculis.health</p>
+
+          {/* Social Media */}
+          <div style={styles.socialContainer}>
+            <div style={styles.socialIconBox}>
+              <div style={styles.iconCircle}>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20px"
+                  height="20px"
+                  fill="currentColor"
+                  viewBox="0 0 256 256"
+                >
+                  <path d="M216,24H40A16,16,0,0,0,24,40V216a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V40A16,16,0,0,0,216,24Zm0,192H40V40H216V216ZM96,112v64a8,8,0,0,1-16,0V112a8,8,0,0,1,16,0Zm88,28v36a8,8,0,0,1-16,0V140a20,20,0,0,0-40,0v36a8,8,0,0,1-16,0V112a8,8,0,0,1,15.79-1.78A36,36,0,0,1,184,140ZM100,84A12,12,0,1,1,88,72,12,12,0,0,1,100,84Z"></path>
+                </svg>
+              </div>
+              <p style={styles.socialLabel}>LinkedIn</p>
+            </div>
+          </div>
+        </div>
+      </main>
     </div>
   );
 };
 
 export default Contact;
-
