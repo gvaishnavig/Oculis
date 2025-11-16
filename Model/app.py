@@ -2,9 +2,28 @@ import streamlit as st
 import tensorflow as tf
 from tensorflow.keras.applications.mobilenet_v3 import preprocess_input
 import numpy as np
+from flask import Flask, jsonify
+from pymongo import MongoClient
+from prediction import prediction_bp
+from Auth import auth_bp
 from recommendation import cnv,dme,drusen,normal
 import tempfile
+from database import db
 
+app = Flask(__name__)
+app.register_blueprint(auth_bp)
+app.register_blueprint(prediction_bp)
+#@app.route("/test-db")
+#def test_db():
+   # db.users.insert_one({"test":"connected!"})
+    #return "MongoDB Atlas Connected Successfully!"
+
+@app.route("/")
+def home():
+    return jsonify({"message":"Welcome to Oculis API Backend"})
+
+if __name__=="__main__":
+    app.run(debug=True)
 
 #Tensorflow Model Prediction
 def model_prediction(test_image_path):
