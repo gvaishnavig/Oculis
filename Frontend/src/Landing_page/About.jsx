@@ -1,91 +1,192 @@
-<<<<<<< HEAD
-=======
-import React from 'react';
+
+import React from "react";
+
 
 const About = () => {
+  const styles = {
+    container: {
+      backgroundColor: "#f8fbfa",
+      minHeight: "100vh",
+      fontFamily: "Inter, Noto Sans, sans-serif",
+      display: "flex",
+      flexDirection: "column",
+      overflowX: "hidden",
+    },
+    header: {
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+      padding: "12px 40px",
+      borderBottom: "1px solid #e8f3ee",
+    },
+    contentWrapper: {
+      flex: 1,
+      padding: "40px",
+      display: "flex",
+      justifyContent: "center",
+    },
+    content: {
+      maxWidth: "960px",
+      width: "100%",
+    },
+    heading: {
+      fontSize: "32px",
+      fontWeight: "bold",
+      color: "#0e1b15",
+      padding: "16px 0",
+    },
+    paragraph: {
+      color: "#0e1b15",
+      fontSize: "16px",
+      lineHeight: "1.6",
+      padding: "8px 16px",
+    },
+    subHeading: {
+      fontSize: "22px",
+      fontWeight: "bold",
+      color: "#0e1b15",
+      padding: "20px 16px 8px",
+    },
+    teamGrid: {
+      display: "grid",
+      gridTemplateColumns: "repeat(auto-fit, minmax(158px, 1fr))",
+      gap: "12px",
+      padding: "16px",
+    },
+    teamCard: {
+      textAlign: "center",
+      paddingBottom: "16px",
+    },
+    teamImageWrapper: {
+      padding: "0 16px",
+    },
+    teamImage: (url) => ({
+      width: "100%",
+      aspectRatio: "1 / 1",
+      borderRadius: "50%",
+      backgroundImage: `url(${url})`,
+      backgroundSize: "cover",
+      backgroundPosition: "center",
+      backgroundRepeat: "no-repeat",
+    }),
+    teamName: {
+      fontSize: "16px",
+      fontWeight: 500,
+      color: "#0e1b15",
+      marginTop: "8px",
+    },
+    teamRole: {
+      fontSize: "14px",
+      color: "#509577",
+    },
+    footer: {
+      textAlign: "center",
+      padding: "40px 0",
+      color: "#509577",
+      fontSize: "16px",
+    },
+    footerLinks: {
+      display: "flex",
+      justifyContent: "center",
+      gap: "32px",
+      marginBottom: "20px",
+    },
+    footerLink: {
+      textDecoration: "none",
+      color: "#509577",
+      fontSize: "16px",
+    },
+  };
+
   return (
-    <section className="bg-gray-900 text-gray-200 py-20 px-4 md:px-12 lg:px-24 min-h-screen flex items-center justify-center font-inter">
-      <div className="container mx-auto max-w-7xl">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          {/* Left Column: Text Content */}
-          <div className="order-2 lg:order-1">
-            <h1 className="text-4xl md:text-5xl font-bold pb-2 mb-4 relative inline-block">
-              <span className="relative z-10 text-emerald-400 drop-shadow-lg text-glow">About Us</span>
-              <div className="absolute -bottom-1 left-0 w-24 h-1.5 bg-emerald-500 rounded-full z-0 glowing-underline"></div>
-            </h1>
+    <div style={styles.container}>
+      {/* Header removed logo/title */}
+      <header style={styles.header}></header>
 
-            <p className="text-lg leading-relaxed text-gray-400 mb-6 mt-8">
-              Welcome to <strong className="font-semibold text-emerald-300">Oculis</strong>, where we believe in the power of clarity and innovation. We are a team of dedicated professionals committed to building solutions that are not just cutting-edge, but also intuitive and genuinely transformative.
-            </p>
-            <p className="text-lg leading-relaxed text-gray-400 mb-12">
-              Our work is driven by a passion for excellence and a deep-seated respect for our users. We strive to create platforms that simplify complexity and empower every individual and organization to achieve their goals with confidence.
-            </p>
-          </div>
+      {/* Main content */}
+      <div style={styles.contentWrapper}>
+        <div style={styles.content}>
+          <h1 style={styles.heading}>About Oculis</h1>
+          <p style={styles.paragraph}>
+            Oculis is an innovative AI-powered platform designed to revolutionize
+            retinal disease detection. By leveraging advanced AI algorithms,
+            Oculis analyzes Optical Coherence Tomography (OCT) images with
+            unparalleled precision, enabling early and accurate diagnosis of
+            conditions such as Diabetic Macular Edema (DME), Choroidal
+            Neovascularization (CNV), Drusen, and Normal.
+          </p>
 
-          {/* Right Column: Cards */}
-          <div className="order-1 lg:order-2">
-            <div className="space-y-8">
-              {/* Vision Card */}
-              <div className="bg-gray-800 rounded-2xl p-8 shadow-2xl shadow-emerald-900/40 transform transition-all duration-300 hover:scale-105 hover:bg-gray-700">
-                <h3 className="text-xl md:text-2xl font-bold text-emerald-400 mb-3">Our Vision</h3>
-                <p className="text-sm md:text-base leading-relaxed text-gray-300">
-                  To be a global leader in digital innovation, recognized for our commitment to quality, integrity, and solutions that make a lasting positive impact on the world.
-                </p>
+          <h2 style={styles.subHeading}>Our Technology</h2>
+          <p style={styles.paragraph}>
+            At the heart of Oculis lies a sophisticated AI engine built on
+            Convolutional Neural Networks (CNNs) and powered by TensorFlow. This
+            framework allows real-time classification of OCT images, providing
+            clinicians with rapid insights into retinal abnormalities.
+          </p>
+
+          <h2 style={styles.subHeading}>Our Team</h2>
+          <div style={styles.teamGrid}>
+            <div style={styles.teamCard}>
+              <div style={styles.teamImageWrapper}>
+                <div
+                  style={styles.teamImage(
+                    "https://lh3.googleusercontent.com/aida-public/AB6AXuBV3Hv9k0Oo0XtS1IemeXRXPq6nK-GdwbGnE9-L4A-MzNh1CTr1sRI_DjlIakg0aykENZ7g1iuoVqshyGvIR_1LZqrJ-0zUJSIcFGP2I3Z7Ez6jaDCgJ0fGy3mYxjHkKCVg8KI5AbmnyM4KJ_sz5Sof9zAcZXzpriZ71IW4qRwqpF2cLfV6eNJTePd-jpB6vHgN63ELtTpUS4H0PwF2Jxuzl_fvyOmv1p6fcODbwYd7M3bydv91hrSSTylKqvnHfKWGZMKPA7XvlCTx"
+                  )}
+                />
               </div>
+              <p style={styles.teamName}>Vaishnavi Gurram</p>
+              <p style={styles.teamRole}>CEO</p>
+            </div>
 
-              {/* Mission Card */}
-              <div className="bg-gray-800 rounded-2xl p-8 shadow-2xl shadow-emerald-900/40 transform transition-all duration-300 hover:scale-105 hover:bg-gray-700">
-                <h3 className="text-xl md:text-2xl font-bold text-emerald-400 mb-3">Our Mission</h3>
-                <p className="text-sm md:text-base leading-relaxed text-gray-300">
-                  To empower individuals and businesses by providing them with the tools and insights needed to navigate the digital landscape with ease and efficiency.
-                </p>
+            <div style={styles.teamCard}>
+              <div style={styles.teamImageWrapper}>
+                <div
+                  style={styles.teamImage(
+                    "https://lh3.googleusercontent.com/aida-public/AB6AXuBwAVyJfTGOvibrSQjkoRei31ijw3z0XKbA2cOLpJAx3vU3D_lnFRMuDvqCwO7TkbZ8k9ALN9o7qmMD-LGmd_ce6-u4-ey-nNXMW8SV8MhnShMYZdqnZwdUN3b8Uv2MX4e8A1_Ks-fdhs2kVNMQAT0z9aLJhiuWDsi12ddoWMjJN1hWqdFeudqXR3Z8QxtLhJrW4tboIujPFMqRvzv2JpYg1_Xn127KQPRUDFnIFg6mx0113zKO3CjjBRl2gWgut_-Z_pMFvhAss9u2"
+                  )}
+                />
               </div>
+              <p style={styles.teamName}>Riya Patidar</p>
+              <p style={styles.teamRole}>CTO</p>
+            </div>
 
-              {/* Values Card */}
-              <div className="bg-gray-800 rounded-2xl p-8 shadow-2xl shadow-emerald-900/40 transform transition-all duration-300 hover:scale-105 hover:bg-gray-700">
-                <h3 className="text-xl md:text-2xl font-bold text-emerald-400 mb-3">Our Values</h3>
-                <p className="text-sm md:text-base leading-relaxed text-gray-300">
-                  Integrity, innovation, and a collaborative spirit are at the core of our culture. We believe in transparent communication and building strong partnerships with our clients.
-                </p>
+            <div style={styles.teamCard}>
+              <div style={styles.teamImageWrapper}>
+                <div
+                  style={styles.teamImage(
+                    "https://lh3.googleusercontent.com/aida-public/AB6AXuAIZeK_ks4ynx8iefdZQlpujPTSpsPyElK9sapaVYcT54jLy0QsO4mcIxvKNP3czHsFGeD05Uts5Rjtp9RG40hiIDpGAoiNgLRG1Y14NggTZbNp27xYnWNv6Wm51wUkRzpGPXXc4OfltwEXUBVsmc-CrIGM2O71zXYVwByvHNSV-RR-OWI6reaGiu7mqZitHn9gElwcYrU-UD_yGUwBdoAHgAbeLZUVP2zIbvpzO3suSk-aBn18AcDxY63ALfxgZ8M1gPxSGGNWvhrg"
+                  )}
+                />
               </div>
+              <p style={styles.teamName}>Riya Sathe</p>
+              <p style={styles.teamRole}>Head of Research</p>
             </div>
           </div>
+
+          <h2 style={styles.subHeading}>Vision & Values</h2>
+          <p style={styles.paragraph}>
+            Our vision is to create a world where advanced AI technology is
+            seamlessly integrated into healthcare, making early and accurate
+            diagnoses accessible to all. We are committed to ethical AI
+            development, ensuring patient privacy and data security.
+          </p>
         </div>
       </div>
-      <style>
-        {`
-          @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
-          
-          .font-inter {
-            font-family: 'Inter', sans-serif;
-          }
 
-          .text-glow {
-            text-shadow: 0 0 8px rgba(16, 185, 129, 0.6), 0 0 12px rgba(16, 185, 129, 0.4);
-          }
-          
-          .glowing-underline {
-            animation: slide-in-underline 1s ease-out forwards;
-            transform-origin: left;
-            box-shadow: 0 0 8px rgba(16, 185, 129, 0.6), 0 0 12px rgba(16, 185, 129, 0.4);
-          }
-
-          @keyframes slide-in-underline {
-            from {
-              transform: scaleX(0);
-            }
-            to {
-              transform: scaleX(1);
-            }
-          }
-        `}
-      </style>
-    </section>
+      {/* Footer */}
+      <footer style={styles.footer}>
+        <div style={styles.footerLinks}>
+          <a href="#" style={styles.footerLink}>
+            Privacy Policy
+          </a>
+          <a href="#" style={styles.footerLink}>
+            Terms of Service
+          </a>
+        </div>
+        <p>@2024 Oculis. All rights reserved.</p>
+      </footer>
+    </div>
   );
 };
 
 export default About;
-
-
-
->>>>>>> cc2e2582ce3df567769b892cef93533889b23f19
