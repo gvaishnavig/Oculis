@@ -22,7 +22,7 @@ app.register_blueprint(auth_bp,url_prefix="/auth")
 app.register_blueprint(prediction_bp)
 #@app.route("/test-db")
 #def test_db():
-   # db.users.insert_one({"test":"connected!"})
+    # db.users.insert_one({"test":"connected!"})
     #return "MongoDB Atlas Connected Successfully!"
 
 @app.route("/")
