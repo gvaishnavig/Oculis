@@ -10,10 +10,14 @@ from recommendation import cnv,dme,drusen,normal
 import tempfile
 from database import db
 from flask_cors import CORS
-
+from flask import request
 
 app = Flask(__name__)
-CORS(app)
+
+app = Flask(__name__)
+CORS(app, origins=["http://localhost:5173"])  # Allow only your frontend
+
+# CORS(app)
 app.register_blueprint(auth_bp,url_prefix="/auth")
 app.register_blueprint(prediction_bp)
 #@app.route("/test-db")
@@ -24,6 +28,31 @@ app.register_blueprint(prediction_bp)
 @app.route("/")
 def home():
     return jsonify({"message":"Welcome to Oculis API Backend"})
+
+from flask import request  # Add this if not already imported
+
+@app.route("/predict", methods=["POST"])
+def predict():
+    if 'file' not in request.files:
+        return jsonify({"error": "No file uploaded"}), 400
+
+    file = request.files['file']
+
+    # Save the uploaded file to a temporary file
+    import tempfile
+    with tempfile.NamedTemporaryFile(delete=False, suffix=file.filename) as tmp_file:
+        tmp_file.write(file.read())
+        temp_file_path = tmp_file.name
+
+    # Run prediction using your existing function
+    result_index = model_prediction(temp_file_path)
+
+    # Map index to class name
+    class_names = ['CNV', 'DME', 'DRUSEN', 'NORMAL']
+    prediction = class_names[result_index]
+
+    return jsonify({"prediction": prediction})
+
 
 if __name__=="__main__":
     app.run(debug=True)
@@ -184,3 +213,4 @@ elif(app_mode=="Disease Identification"):
                 ''')
                 st.image(test_image)
                 st.markdown(normal)
+

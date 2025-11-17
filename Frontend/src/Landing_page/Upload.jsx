@@ -7,6 +7,33 @@ const Upload = () => {
   const { currentUser } = useContext(AuthContext);
   const navigate = useNavigate();
 
+  const handleFileUpload = async (event) => {
+  const file = event.target.files[0];
+  if (!file) return;
+
+  const formData = new FormData();
+  formData.append("file", file);
+
+  try {
+    // const response = await fetch("http://127.0.0.1:5000/predict", {
+    //   method: "POST",
+    //   body: formData,
+    // });
+    const response = await fetch("http://localhost:5000/predict", {
+      method: "POST",
+      body: formData,
+    });
+
+
+    const data = await response.json();
+    alert(`Prediction: ${data.prediction}`);
+  } catch (err) {
+    console.error(err);
+    alert("Error uploading file");
+  }
+};
+
+
   const styles = {
     page: {
       fontFamily: "'Inter', sans-serif",
@@ -122,7 +149,21 @@ const Upload = () => {
         <div style={styles.uploadBox}>
           <p style={styles.sectionText}>Drop your OCT scan here or click to upload</p>
           <p style={styles.sectionText}>Supported formats: .OCT, .IMG, .PNG</p>
-          <button style={styles.uploadButton}>Browse Files</button>
+          {/* <button style={styles.uploadButton}>Browse Files</button> */}
+          <input
+            type="file"
+            accept=".OCT,.IMG,.PNG,.jpg,.jpeg,.png"
+            style={{ display: "none" }}
+            onChange={handleFileUpload}
+            id="fileInput"
+          />
+          <button
+            style={styles.uploadButton}
+            onClick={() => document.getElementById("fileInput").click()}
+          >
+            Browse Files
+          </button>
+
         </div>
 
         <h2 style={styles.sectionTitle}>Analysis Result</h2>
