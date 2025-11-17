@@ -1,6 +1,59 @@
-import React from "react";
+import React ,{useState}from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../Context/AuthContext";
+import { useContext } from "react";
 
 const Register = () => {
+
+   const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [role, setRole] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
+  const navigate = useNavigate();
+  const { registerUser } = useContext(AuthContext);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (password !== confirmPassword) {
+    alert("Passwords do not match");
+    return;
+  }
+
+    try {
+      const res = await axios.post("http://localhost:5000/auth/register", {
+        name,
+        email,
+        password,
+        role
+      });
+
+      console.log("Response:", res);
+
+      if (res.status === 201) {
+      alert("Registration Successful!");
+       registerUser();  
+      
+      navigate("/")
+    } else {
+      alert(res.data.message || "Something went wrong");
+    }
+
+  } catch (err) {
+    console.error("error: ", err);
+
+    if (!err.response) {
+      alert("No response from backend");
+      return;
+    }
+      alert(err.response.data.message || "Registration failed");
+    }
+  };
+  
+
   const containerStyle = {
     minHeight: "100vh",
     display: "flex",
@@ -100,26 +153,60 @@ const Register = () => {
         <div style={rightPanelStyle}>
           <h2 style={headingStyle}>Create an Account</h2>
           <p style={textStyle}>Join Oculis to start analyzing your scans.</p>
-          <form>
-            <input type="text" placeholder="Full Name" style={inputStyle} />
-            <input type="email" placeholder="Email" style={inputStyle} />
-            <input type="password" placeholder="Password" style={inputStyle} />
-            <input
-              type="password"
-              placeholder="Confirm Password"
-              style={inputStyle}
-            />
-            <button
-              type="submit"
-              style={buttonStyle}
-              onMouseOver={(e) =>
-                Object.assign(e.target.style, hoverButtonStyle)
-              }
-              onMouseOut={(e) => Object.assign(e.target.style, buttonStyle)}
-            >
-              Register
-            </button>
-          </form>
+          <form onSubmit={handleSubmit}>
+  <input
+    type="text"
+    placeholder="Full Name"
+    style={inputStyle}
+    value={name}
+    onChange={(e) => setName(e.target.value)}
+  />
+
+  <input
+    type="email"
+    placeholder="Email"
+    style={inputStyle}
+    value={email}
+    onChange={(e) => setEmail(e.target.value)}
+  />
+
+  <input
+    type="password"
+    placeholder="Password"
+    style={inputStyle}
+    value={password}
+    onChange={(e) => setPassword(e.target.value)}
+  />
+
+  <input
+  type="password"
+  placeholder="Confirm Password"
+  value={confirmPassword}
+  onChange={(e) => setConfirmPassword(e.target.value)}
+  style={inputStyle}
+/>
+
+  <select
+  value={role}
+  onChange={(e) => setRole(e.target.value)}
+  style={inputStyle}
+>
+  <option value="choose"></option>
+  <option value="patient">Patient</option>
+  <option value="doctor">Doctor</option>
+  <option value="admin">Admin</option>
+</select>
+
+  <button
+    type="submit"
+    style={buttonStyle}
+    onMouseOver={(e) => Object.assign(e.target.style, hoverButtonStyle)}
+    onMouseOut={(e) => Object.assign(e.target.style, buttonStyle)}
+  >
+    Register
+  </button>
+</form>
+
         </div>
       </div>
     </div>

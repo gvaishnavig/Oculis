@@ -9,9 +9,12 @@ from Auth import auth_bp
 from recommendation import cnv,dme,drusen,normal
 import tempfile
 from database import db
+from flask_cors import CORS
+
 
 app = Flask(__name__)
-app.register_blueprint(auth_bp)
+CORS(app)
+app.register_blueprint(auth_bp,url_prefix="/auth")
 app.register_blueprint(prediction_bp)
 #@app.route("/test-db")
 #def test_db():

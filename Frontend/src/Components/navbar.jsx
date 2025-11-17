@@ -1,7 +1,10 @@
-import React from "react";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../Context/AuthContext";
 
 const Navbar = () => {
+  const { currentUser } = useContext(AuthContext);
+
   const styles = {
     navbar: {
       backgroundColor: "#2A9D8F",
@@ -55,18 +58,32 @@ const Navbar = () => {
         <Link to="/about" style={styles.link}>
           About
         </Link>
-        <Link to="/contact" style={styles.link}>
+        <Link to="/ContactPage" style={styles.link}>
           Contact
         </Link>
-        <Link to="/register">
-          <button
-            style={styles.loginBtn}
-            onMouseOver={(e) => (e.target.style.backgroundColor = "#e0f2f1")}
-            onMouseOut={(e) => (e.target.style.backgroundColor = "white")}
-          >
-            Register
-          </button>
-        </Link>
+
+        {/* Show Register if user not registered, otherwise show Login */}
+        
+          <Link to="/login">
+            <button
+              style={styles.loginBtn}
+              onMouseOver={(e) => (e.target.style.backgroundColor = "#e0f2f1")}
+              onMouseOut={(e) => (e.target.style.backgroundColor = "white")}
+            >
+              Login
+            </button>
+          </Link>
+      
+          <Link to="/register">
+            <button
+              style={styles.loginBtn}
+              onMouseOver={(e) => (e.target.style.backgroundColor = "#e0f2f1")}
+              onMouseOut={(e) => (e.target.style.backgroundColor = "white")}
+            >
+              Register
+            </button>
+          </Link>
+        
       </div>
     </nav>
   );

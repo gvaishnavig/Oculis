@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 export default function OculisLanding() {
   // Inject Google Font (Manrope) into document head
   const navigate = useNavigate();
+ 
   useEffect(() => {
     const id = "oculis-manrope-font";
     if (!document.getElementById(id)) {
@@ -440,40 +441,7 @@ export default function OculisLanding() {
     <div style={s.page}>
       <div style={s.containerOuter}>
         <div style={s.pageWrapper}>
-          {/* Top sticky header */}
-          <div style={s.topBarWrap}>
-            <div style={s.layoutContentContainer}>
-              <header style={s.header}>
-                <div style={s.brandRow}>
-                  <div style={s.logoBox}>
-                    <svg width="22" height="22" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" fill="currentColor" aria-hidden>
-                      <path d="M24 4H6V17.3333V30.6667H24V44H42V30.6667V17.3333H24V4Z" />
-                    </svg>
-                  </div>
-                  <h2 style={s.siteTitle}>Oculis</h2>
-                </div>
-
-                <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-                  <nav style={s.navDesktop}>
-                    <div style={s.navLinks}>
-                    <a style={s.navLink} onClick={() => navigate("/")}>Home</a>
-                    <a style={s.navLink} onClick={() => navigate("/About")}>About</a>
-                    <a style={s.navLink} onClick={() => navigate("/ContactPage")}>Contact</a>
-                    </div>
-                  <div style={s.authButtonsWrap}>
-                  <button style={s.loginBtn} onClick={() => navigate("/login")}>
-                     Login
-                  </button>
-                  <button style={s.registerBtn} onClick={() => navigate("/register")}>
-                    Register
-                  </button>
-                  </div>
-
-                  </nav>
-                </div>
-              </header>
-            </div>
-          </div>
+          
 
           {/* Main */}
           <main style={s.main}>

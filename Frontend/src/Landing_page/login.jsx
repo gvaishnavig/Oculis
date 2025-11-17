@@ -1,8 +1,49 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../Context/AuthContext";
 
 const Login = () => {
-  const [isLogin, setIsLogin] = useState(true);
+  const { loginUser } = useContext(AuthContext); // update currentUser
+  const navigate = useNavigate();
 
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  // --- Handle Login ---
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await axios.post("http://localhost:5000/auth/login", {
+        email,
+        password,},
+         { headers: { "Content-Type": "application/json" } }
+       
+    );
+
+      // If login successful
+      if (res.data.user && res.data.user.role) {
+        loginUser(res.data.user); // update AuthContext
+
+        // Navigate based on role
+        if (res.data.user.role === "patient") navigate("/patient");
+        else if (res.data.user.role === "doctor") navigate("/doctor");
+        else navigate("/"); // fallback
+      } else {
+        alert(res.data.error || "Login failed");
+      }
+    } catch (err) {
+      console.error(err);
+     // Axios throws error for non-2xx status codes
+    if (err.response && err.response.data && err.response.data.error) {
+      alert(err.response.data.error); // shows "Invalid email or password"
+    } else {
+      alert("Login failed. Could not reach server.");
+    }
+    }
+  };
+
+  // --- Styles (same as your previous code) ---
   const containerStyle = {
     minHeight: "100vh",
     display: "flex",
@@ -12,7 +53,6 @@ const Login = () => {
     padding: "1rem",
     fontFamily: "'Poppins', sans-serif",
   };
-
   const cardStyle = {
     maxWidth: "1200px",
     width: "100%",
@@ -23,7 +63,6 @@ const Login = () => {
     boxShadow: "0 6px 15px rgba(0,0,0,0.1)",
     backgroundColor: "#ffffff",
   };
-
   const leftPanelStyle = {
     display: "flex",
     flexDirection: "column",
@@ -32,11 +71,7 @@ const Login = () => {
     padding: "3rem",
     backgroundColor: "rgba(139, 228, 190, 0.2)",
   };
-
-  const rightPanelStyle = {
-    padding: "3rem",
-  };
-
+  const rightPanelStyle = { padding: "3rem" };
   const inputStyle = {
     width: "100%",
     padding: "0.75rem 1rem",
@@ -46,7 +81,6 @@ const Login = () => {
     outline: "none",
     fontSize: "1rem",
   };
-
   const buttonStyle = {
     width: "100%",
     padding: "0.75rem",
@@ -58,125 +92,51 @@ const Login = () => {
     border: "none",
     transition: "all 0.2s ease-in-out",
   };
-
-  const hoverButtonStyle = {
-    backgroundColor: "#36a66c",
-    transform: "scale(1.03)",
-  };
-
-  const linkStyle = {
-    color: "#3D9970",
-    cursor: "pointer",
-    fontWeight: "600",
-    textDecoration: "underline",
-    background: "none",
-    border: "none",
-    padding: "0",
-    margin: "0",
-  };
-
-  const headingStyle = {
-    fontSize: "2rem",
-    fontWeight: "700",
-    marginBottom: "0.5rem",
-  };
-
-  const textStyle = {
-    marginBottom: "2rem",
-    color: "#4b5563",
-  };
+  const hoverButtonStyle = { backgroundColor: "#36a66c", transform: "scale(1.03)" };
+  const headingStyle = { fontSize: "2rem", fontWeight: "700", marginBottom: "0.5rem" };
+  const textStyle = { marginBottom: "2rem", color: "#4b5563" };
 
   return (
     <div style={containerStyle}>
       <div style={cardStyle}>
         {/* Left Panel */}
         <div style={leftPanelStyle}>
-          <img
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDV6DhQByv5HEPKzUo3kN3O3hQSYqpQlLd79DjrbiYJw1kASnlVMpGdmD75MPo9IsRbcUJ3mNUxxqJ2jwNDWqOPhAqHbNDk4eMzS6KCzG0FGTwFWnSnKG0gP-q1bI0DRql6vDLSlTpHbNe_oRcBIUx9kzmSUv35lHKgJWAAruf7cFaXa43C1cJ1ydKz9fuI6am_EqQ_8OQsBYsHxki-gFJmtENBZURo00cTUPdCl4OrXom96KxbcnBMpUQ0ftc7Ku3pRC68YUQXg2Vg"
-            alt="Oculis Logo"
-            style={{ height: "80px", marginBottom: "2rem" }}
-          />
-          <img
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAeI0KVlwsD0VKkqbDuVJJxVbk3ch5HDfbByjrad-gYafOHhAgKiGR414rek0WOghPndNWbPVY4kjH5lOhfHr46qhpowz0qlrLTl4STKfEwYCaZGVycwBRqwXFH-b-XIc8GmVWwJaFxOqf2DTA9VtiJzRP1OjiDmBZL37r529poX9e2Qwc0y2kmO7W-k5JIhIvnARrXfACwPtsmgA7DjSBmCKJiF_buNnYtqUKNe-IDuWWY_-sGVXzUYY-uZVo53N-TCHkD1LDPRv0y"
-            alt="Abstract retina illustration"
-            style={{ maxWidth: "300px", width: "100%", marginBottom: "2rem" }}
-          />
           <h1 style={{ ...headingStyle, color: "#3D9970", marginTop: "2rem" }}>
             Oculis AI Platform
           </h1>
-          <p style={textStyle}>
-            Advanced Retinal Analysis for Early Disease Detection.
-          </p>
+          <p style={textStyle}>Advanced Retinal Analysis for Early Disease Detection.</p>
         </div>
 
         {/* Right Panel */}
         <div style={rightPanelStyle}>
-          {isLogin ? (
-            <div>
-              <h2 style={headingStyle}>Welcome Back</h2>
-              <p style={textStyle}>Please enter your details to sign in.</p>
-              <form>
-                <input type="email" placeholder="Email" style={inputStyle} />
-                <input type="password" placeholder="Password" style={inputStyle} />
-                <div style={{ marginBottom: "1rem" }}>
-                  <button
-                    type="button"
-                    style={linkStyle}
-                    onClick={() => alert("Forgot password clicked")}
-                  >
-                    Forgot Password?
-                  </button>
-                </div>
-                <button
-                  type="submit"
-                  style={buttonStyle}
-                  onMouseOver={(e) =>
-                    Object.assign(e.target.style, hoverButtonStyle)
-                  }
-                  onMouseOut={(e) => Object.assign(e.target.style, buttonStyle)}
-                >
-                  Login
-                </button>
-              </form>
-              <p style={{ marginTop: "2rem", textAlign: "center", color: "#4b5563" }}>
-                Don't have an account?{" "}
-                <button style={linkStyle} onClick={() => setIsLogin(false)}>
-                  Create New Account
-                </button>
-              </p>
-            </div>
-          ) : (
-            <div>
-              <h2 style={headingStyle}>Create an Account</h2>
-              <p style={textStyle}>Join Oculis to start analyzing your scans.</p>
-              <form>
-                <input type="text" placeholder="Full Name" style={inputStyle} />
-                <input type="email" placeholder="Email" style={inputStyle} />
-                <input type="password" placeholder="Password" style={inputStyle} />
-                <input
-                  type="password"
-                  placeholder="Confirm Password"
-                  style={inputStyle}
-                />
-                <button
-                  type="submit"
-                  style={buttonStyle}
-                  onMouseOver={(e) =>
-                    Object.assign(e.target.style, hoverButtonStyle)
-                  }
-                  onMouseOut={(e) => Object.assign(e.target.style, buttonStyle)}
-                >
-                  Register
-                </button>
-              </form>
-              <p style={{ marginTop: "2rem", textAlign: "center", color: "#4b5563" }}>
-                Already have an account?{" "}
-                <button style={linkStyle} onClick={() => setIsLogin(true)}>
-                  Sign In
-                </button>
-              </p>
-            </div>
-          )}
+          <h2 style={headingStyle}>Welcome Back</h2>
+          <p style={textStyle}>Please enter your details to sign in.</p>
+          <form onSubmit={handleLogin}>
+            <input
+              type="email"
+              placeholder="Email"
+              style={inputStyle}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              style={inputStyle}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+            <button
+              type="submit"
+              style={buttonStyle}
+              onMouseOver={(e) => Object.assign(e.target.style, hoverButtonStyle)}
+              onMouseOut={(e) => Object.assign(e.target.style, buttonStyle)}
+            >
+              Login
+            </button>
+          </form>
         </div>
       </div>
     </div>
