@@ -1,4 +1,3 @@
- 
 import './App.css';
 import { AuthProvider } from "./Context/AuthContext";
 import { Routes, Route, useLocation } from "react-router-dom";
