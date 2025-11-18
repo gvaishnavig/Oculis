@@ -154,7 +154,7 @@ const HowItWorks = () => {
           <a href="#" style={{ color: "#666" }}>🐦</a>
         </div>
 
-        <p style={{ fontSize: "14px" }}>© 2024 Oculis. All rights reserved.</p>
+        <p style={{ fontSize: "14px" }}>© 2025 Oculis. All rights reserved.</p>
       </footer>
     </div>
   );
