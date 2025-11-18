@@ -4,7 +4,7 @@ import axios from "axios";
 import { AuthContext } from "../Context/AuthContext";
 
 const PatientRecords = () => {
-  const { currentUser } = useContext(AuthContext);
+  const { currentUser ,logout} = useContext(AuthContext);
   const navigate = useNavigate();
   const [patients, setPatients] = useState([]);
 
@@ -39,6 +39,8 @@ const PatientRecords = () => {
     td: { padding: "12px 16px", borderBottom: "1px solid #e5e7eb" },
     button: { backgroundColor: "#2b5876", color: "white", border: "none", borderRadius: "8px", padding: "8px 14px", cursor: "pointer", transition: "background 0.3s" },
     status: { Completed: { color: "#10b981", fontWeight: "600" }, Pending: { color: "#f59e0b", fontWeight: "600" } },
+    buttons: { display: "flex", gap: "8px" },
+    logoutBtn: { backgroundColor: "rgba(26,183,115,0.2)", color: "#111", fontSize: "14px", fontWeight: "600", border: "none", borderRadius: "8px", padding: "10px 20px", cursor: "pointer" },
   };
 
   const isActive = (path) => window.location.pathname === path;
@@ -61,7 +63,18 @@ const PatientRecords = () => {
             <span style={isActive("/doctor/patient-records") ? styles.navActive : styles.navLink} onClick={() => navigate("/doctor/patient-records")}>Patient Records</span>
             <span style={isActive("/doctor") ? styles.navActive : styles.navLink} onClick={() => navigate("/doctor")}>How It Works</span>
           </nav>
-          <div style={styles.profilePic} onClick={() => console.log("Logout clicked")}></div>
+           {/* Logout Button */}
+        <div style={styles.buttons}>
+          <button
+  style={styles.logoutBtn}
+  onClick={() => {
+    logout();            // clear user from context/localStorage
+    navigate("/");       // redirect to homepage
+  }}
+>
+  Logout
+</button>
+        </div>
         </div>
       </header>
 

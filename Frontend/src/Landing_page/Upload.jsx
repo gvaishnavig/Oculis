@@ -110,6 +110,8 @@ const Upload = () => {
     },
     sectionTitle: { fontSize: "24px", fontWeight: "700", marginBottom: "12px", marginTop: "40px" },
     sectionText: { fontSize: "16px", textAlign: "center", color: "#555", lineHeight: "1.6" },
+    buttons: { display: "flex", gap: "8px" },
+    logoutBtn: { backgroundColor: "rgba(26,183,115,0.2)", color: "#111", fontSize: "14px", fontWeight: "600", border: "none", borderRadius: "8px", padding: "10px 20px", cursor: "pointer" },
   };
 
   const isActive = (path) => window.location.pathname === path;
@@ -152,7 +154,18 @@ const Upload = () => {
           </span>
         </nav>
 
-        <div style={styles.profilePic} onClick={() => console.log("Logout clicked")}></div>
+        {/* Logout Button */}
+        <div style={styles.buttons}>
+          <button
+  style={styles.logoutBtn}
+  onClick={() => {
+    logout();            // clear user from context/localStorage
+    navigate("/");       // redirect to homepage
+  }}
+>
+  Logout
+</button>
+</div>
       </header>
 
       {/* Main Content */}
@@ -161,7 +174,7 @@ const Upload = () => {
 
         <div style={styles.uploadBox}>
           <p style={styles.sectionText}>Drop your OCT scan here or click to upload</p>
-          <p style={styles.sectionText}>Supported formats: .OCT, .IMG, .PNG</p>
+          <p style={styles.sectionText}>Supported formats: .JPG, .JPEG, </p>
           {/* <button style={styles.uploadButton}>Browse Files</button> */}
           <input
             type="file"
@@ -214,7 +227,7 @@ const Upload = () => {
         </p>
 
 
-        <button style={styles.uploadButton}>Download Report (PDF)</button>
+        
       </main>
     </div>
   );

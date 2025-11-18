@@ -31,6 +31,7 @@ const Dashboard = () => {
     td: { color: "#0e1b15", fontSize: "14px", padding: "12px", borderTop: "1px solid #d1e6dd" },
     button: { backgroundColor: "#e8f3ee", border: "none", borderRadius: "12px", padding: "6px 12px", cursor: "pointer", fontSize: "14px", fontWeight: "500", color: "#0e1b15" },
     action: { color: "#509577", fontWeight: "bold" },
+   
   };
 
   // Example dynamic cards and patients per doctor
@@ -76,11 +77,19 @@ const Dashboard = () => {
             </span>
           </nav>
 
-          <div style={styles.buttons}>
-            <button style={styles.logoutBtn} onClick={logout}>Logout</button>
-            <div style={styles.profilePic}></div>
-          </div>
-        </div>
+          {/* Logout Button */}
+        <div style={styles.buttons}>
+          <button
+  style={styles.logoutBtn}
+  onClick={() => {
+    logout();            // clear user from context/localStorage
+    navigate("/");       // redirect to homepage
+  }}
+>
+  Logout
+</button>
+</div>
+   </div>
       </header>
 
       {/* Main content */}

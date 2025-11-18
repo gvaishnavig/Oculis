@@ -77,9 +77,15 @@ const HowItWorks = () => {
 
         {/* Logout Button */}
         <div style={styles.buttons}>
-          <button style={styles.logoutBtn} onClick={logout}>
-            Logout
-          </button>
+          <button
+  style={styles.logoutBtn}
+  onClick={() => {
+    logout();            // clear user from context/localStorage
+    navigate("/");       // redirect to homepage
+  }}
+>
+  Logout
+</button>
         </div>
       </header>
 

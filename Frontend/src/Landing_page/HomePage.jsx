@@ -458,10 +458,7 @@ export default function OculisLanding() {
                     </h2>
                   </div>
 
-                  <div style={s.heroButtonsRow}>
-                    <button style={s.heroPrimaryBtn}>Get Started</button>
-                    <button style={s.heroSecondaryBtn}>Request a Demo</button>
-                  </div>
+                  
                 </div>
               </div>
             </div>
@@ -558,9 +555,7 @@ export default function OculisLanding() {
                 <div style={s.integrationLeft}>
                   <h2 style={{ margin: 0, fontSize: 22, fontWeight: 800, color: "#264653" }}>Seamless Integration &amp; Compatibility</h2>
                   <p style={{ marginTop: 8, color: "#708087" }}>Oculis is designed to fit into your existing workflow. Integrate with leading EMR/EHR systems and telemedicine platforms to streamline patient data management.</p>
-                  <div style={{ marginTop: 12 }}>
-                    <button style={{ ...s.heroPrimaryBtn, background: "#219EBC" }}>Learn More</button>
-                  </div>
+                 
                 </div>
 
                 <div style={s.integrationRight}>
@@ -623,7 +618,7 @@ export default function OculisLanding() {
                       <span style={{ fontSize: 20 }}>▾</span>
                     </summary>
                     <p style={{ marginTop: 8, color: "#708087" }}>
-                      Our AI model is trained on a vast and diverse dataset of millions of OCT scans and has been validated in clinical studies, demonstrating over 98% accuracy in detecting key retinal diseases like DME, CNV, and Drusen.
+                      Our AI model is trained on a vast and diverse dataset of millions of OCT scans and has been validated in clinical studies, demonstrating over 97% accuracy in detecting key retinal diseases like DME, CNV, and Drusen.
                     </p>
                   </details>
 
@@ -633,36 +628,16 @@ export default function OculisLanding() {
                       <span style={{ fontSize: 20 }}>▾</span>
                     </summary>
                     <p style={{ marginTop: 8, color: "#708087" }}>
-                      Oculis supports a wide range of common medical imaging formats, including DICOM, JPG, PNG, and TIFF. Our platform is designed for easy upload and compatibility with most modern OCT imaging devices.
+                      Oculis supports a wide range of common medical imaging formats, JPG, PNG, and JPEG. Our platform is designed for easy upload and compatibility with most modern OCT imaging devices.
                     </p>
                   </details>
 
-                  <details style={s.detailsCard}>
-                    <summary style={{ fontWeight: 700, cursor: "pointer", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                      Do you offer a free trial or a demo?
-                      <span style={{ fontSize: 20 }}>▾</span>
-                    </summary>
-                    <p style={{ marginTop: 8, color: "#708087" }}>
-                      Yes, we offer a 14-day free trial for new users to experience the full capabilities of our platform. You can also request a personalized demo with one of our specialists to see how Oculis can fit into your specific workflow.
-                    </p>
-                  </details>
+                  
                 </div>
               </div>
             </div>
 
-            {/* CTA */}
-            <div style={s.ctaOuter}>
-              <div style={s.ctaInner}>
-                <div style={s.ctaBox}>
-                  <h2 style={s.ctaTitle}>Ready to Transform Your Eye Care Practice?</h2>
-                  <p style={s.ctaSub}>Join leading ophthalmologists and optometrists who trust Oculis for faster, more accurate retinal disease detection. Start your free trial today.</p>
-                  <div style={s.ctaButtonsWrap}>
-                    <button style={s.ctaPrimary}>Start Free Trial</button>
-                    <button style={s.ctaSecondary}>Request a Demo</button>
-                  </div>
-                </div>
-              </div>
-            </div>
+           
 
           </main>
         </div>

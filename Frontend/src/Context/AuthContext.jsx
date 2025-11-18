@@ -28,6 +28,11 @@ export const AuthProvider = ({ children }) => {
     setCurrentUser(user);
     localStorage.setItem("currentUser", JSON.stringify(user));
   };
+//logout
+  const logout = () => {
+    setCurrentUser(null);
+    localStorage.removeItem("currentUser");
+  };
 
   // 5️⃣ Provide state and functions to the app
   return (
@@ -35,7 +40,8 @@ export const AuthProvider = ({ children }) => {
       value={{
         currentUser,   // { email, name, role } or null
         registerUser,  // call this after registration
-        loginUser,     // call this after login
+        loginUser,  
+        logout   // call this after login
       }}
     >
       {children}
