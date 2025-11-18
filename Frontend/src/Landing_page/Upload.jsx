@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../Context/AuthContext";
 
 const Upload = () => {
-  const { currentUser } = useContext(AuthContext);
+  const { currentUser,logout } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const [prediction, setPrediction] = useState(null);
