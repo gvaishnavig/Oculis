@@ -25,30 +25,3 @@ def preprocess_image(image_path):
     img = np.expand_dims(img, axis=0)
     return img
 
-@prediction_bp.route("/predict", methods=["POST"])
-def predict():
-
-    model = get_model()
-    if 'image' not in request.files:
-        return jsonify({"error": "No image file uploaded"}), 400
-
-    image = request.files["image"]
-    image_path = "temp_image.jpg"
-    image.save(image_path)
-
-    processed_img = preprocess_image(image_path)
-    prediction = model.predict(processed_img)
-
-    # Example: assume output is [probability of disease]
-    result = float(prediction[0][0])
-
-    # Store prediction in MongoDB
-    predictions_collection.insert_one({
-        "patient_email": request.form.get("email"),
-        "result": result
-    })
-
-    return jsonify({
-        "message": "✅ Prediction successful!",
-        "result": result
-    })

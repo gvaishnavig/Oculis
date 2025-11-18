@@ -2,12 +2,15 @@
  import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../Context/AuthContext";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const PatientDashboard = () => {
-  const { currentUser } = useContext(AuthContext);
+  const { currentUser, logout } = useContext(AuthContext);
   const [records, setRecords] = useState([]);
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const isActive = (path) => location.pathname === path;
 
   // Fetch patient-specific records
   useEffect(() => {
@@ -20,97 +23,68 @@ const PatientDashboard = () => {
   }, [currentUser]);
 
   const styles = {
-    body: { fontFamily: "'Lexend', sans-serif", backgroundColor: "#f6f8f6", color: "#0e1b0e", minHeight: "100vh", display: "flex", flexDirection: "column" },
-    header: { position: "sticky", top: 0, zIndex: 10, width: "100%", borderBottom: "1px solid #e7f3e7", backgroundColor: "rgba(246, 248, 246, 0.8)", backdropFilter: "blur(8px)", display: "flex", justifyContent: "center" },
-    headerContainer: { display: "flex", alignItems: "center", justifyContent: "space-between", height: "64px", width: "100%", maxWidth: "1200px", padding: "0 1.5rem" },
-    logoSection: { display: "flex", alignItems: "center", gap: "0.75rem" },
-    logoIcon: { width: "24px", height: "24px", color: "#17cf17" },
-    nav: { display: "flex", gap: "1.5rem", alignItems: "center" },
-    navLink: { fontSize: "0.9rem", fontWeight: 500, color: "#0e1b0e", textDecoration: "none", transition: "color 0.2s ease" },
-    activeLink: { color: "#17cf17", fontWeight: 600 },
-    rightSection: { display: "flex", alignItems: "center", gap: "1rem" },
-    notifButton: { position: "relative", height: "36px", width: "36px", borderRadius: "50%", backgroundColor: "rgba(23,207,23,0.2)", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer" },
-    notifDot: { position: "absolute", top: "6px", right: "6px", width: "8px", height: "8px", borderRadius: "50%", backgroundColor: "red" },
-    logoutButton: { backgroundColor: "rgba(23,207,23,0.2)", padding: "0.5rem 1rem", borderRadius: "8px", fontSize: "0.9rem", fontWeight: 500, cursor: "pointer", border: "none" },
-    main: { flex: 1, display: "flex", justifyContent: "center", padding: "2rem" },
-    container: { width: "100%", maxWidth: "900px" },
-    banner: { display: "flex", alignItems: "center", gap: "1rem", backgroundColor: "rgba(23,207,23,0.2)", border: "1px solid rgba(23,207,23,0.3)", borderRadius: "8px", padding: "1rem", marginBottom: "2rem" },
-    card: { display: "flex", flexDirection: "column", border: "1px solid #e7f3e7", borderRadius: "12px", overflow: "hidden", boxShadow: "0 2px 8px rgba(0,0,0,0.05)", backgroundColor: "#fdfdfd", marginBottom: "1.5rem" },
-    cardContent: { flex: 1, padding: "2rem", display: "flex", flexDirection: "column", gap: "1rem", justifyContent: "center" },
-    cardImage: { width: "100%", height: "250px", backgroundImage: 'url("https://lh3.googleusercontent.com/aida-public/AB6AXuBsPmjKd0VFEKmFRkONWjabZ9ZLUKLIb5xFeIKN6ktcyOzj8JTDSNGFZzlKBnCSTaFYaKZgRfKnT6PuVk58O-KLPVFKDNnducyqE1qi6Afn-VB-ROgqF2eNCUVMdQBN4kA4vLSoJDLn0YIYkl2ZcMUAkgChZhaVT54d5MSQ-KmuaX0bjypD61H4cM_PAlSQu_keNng49dN7T9VEseIcmgLpS3tz08CMNU7g3XFvnrec9cPIRscstRgjKDTuA9XQxDzrUBBeawhkCdEi")', backgroundSize: "cover", backgroundPosition: "center" },
-    button: { backgroundColor: "#17cf17", color: "#112111", fontWeight: 700, border: "none", borderRadius: "8px", padding: "0.75rem 1.5rem", cursor: "pointer", boxShadow: "0 4px 10px rgba(23,207,23,0.3)", transition: "transform 0.2s ease" },
-    footer: { borderTop: "1px solid #e7f3e7", backgroundColor: "#f6f8f6", textAlign: "center", padding: "1.5rem", fontSize: "0.85rem", color: "#4e974e" },
-    footerLinks: { display: "flex", justifyContent: "center", gap: "1.5rem", marginTop: "0.5rem" },
-    footerLink: { color: "#4e974e", textDecoration: "none", transition: "color 0.2s ease" },
+    page: { fontFamily: "Inter, sans-serif", backgroundColor: "#f6f8f7", minHeight: "100vh", display: "flex", flexDirection: "column" },
+    header: { display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "1px solid rgba(26,183,115,0.2)", padding: "16px 40px" },
+    logoContainer: { display: "flex", alignItems: "center", gap: "10px" },
+    logoText: { fontSize: "20px", fontWeight: "700", color: "#111" },
+    nav: { display: "flex", gap: "32px", alignItems: "center" },
+    navLink: { cursor: "pointer", fontSize: "14px", fontWeight: 500, color: "#333" },
+    navActive: { cursor: "pointer", fontSize: "14px", fontWeight: 700, color: "#1ab773" },
+    buttons: { display: "flex", alignItems: "center", gap: "16px" },
+    logoutBtn: { backgroundColor: "rgba(26,183,115,0.2)", color: "#111", fontSize: "14px", fontWeight: 600, border: "none", borderRadius: "8px", padding: "10px 20px", cursor: "pointer" },
+    main: { flex: 1, display: "flex", flexDirection: "column", alignItems: "center", padding: "40px 20px" },
+    headingContainer: { maxWidth: "800px", marginBottom: "40px", textAlign: "center" },
+    title: { fontSize: "36px", fontWeight: "900", color: "#111", marginBottom: "16px" },
+    subtitle: { fontSize: "16px", color: "#555" },
+    container: { maxWidth: "1000px", width: "100%", display: "flex", flexDirection: "column", gap: "24px" },
+    card: { border: "1px solid rgba(26,183,115,0.2)", borderRadius: "12px", padding: "20px", backgroundColor: "#fff", boxShadow: "0 2px 6px rgba(0,0,0,0.05)" },
+    cardTitle: { fontSize: "18px", fontWeight: "700" },
+    cardText: { fontSize: "14px", color: "#555" },
+    footer: { borderTop: "1px solid rgba(26,183,115,0.2)", padding: "40px 20px", textAlign: "center", color: "#666", display: "flex", flexDirection: "column", alignItems: "center", gap: "16px" },
+    footerLinks: { display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "24px" },
+    footerLink: { color: "#666", textDecoration: "none", fontSize: "14px" },
   };
 
   return (
-    <div style={styles.body}>
+    <div style={styles.page}>
       {/* Header */}
       <header style={styles.header}>
-        <div style={styles.headerContainer}>
-          <div style={styles.logoSection}>
-            <div style={styles.logoIcon}>
-              <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" style={{ width: "24px", height: "24px", color: "#17cf17" }}>
-                <path clipRule="evenodd" d="M24 4H6V17.3333V30.6667H24V44H42V30.6667V17.3333H24V4Z" fill="currentColor" fillRule="evenodd"></path>
-              </svg>
-            </div>
-            <h2 style={{ fontSize: "1.25rem", fontWeight: "700" }}>Oculis</h2>
-          </div>
+        <div style={styles.logoContainer}>
+          <svg width="24" height="24" fill="#1ab773">
+            <path d="M24 4H6V17.3333V30.6667H24V44H42V30.6667V17.3333H24V4Z" />
+          </svg>
+          <h2 style={styles.logoText}>Oculis</h2>
+        </div>
 
-          {/* Navbar with role-based navigation */}
-          <nav style={styles.nav}>
-            <span style={{ ...styles.navLink, ...styles.activeLink, cursor: "pointer" }} onClick={() => navigate("/patient")}>
-              Dashboard
-            </span>
-            <span style={{ ...styles.navLink, cursor: "pointer" }} onClick={() => navigate("/patient/records")}>
-              View Records
-            </span>
-            <span style={styles.navLink} >About</span>
-            <span style={styles.navLink} >Contact Us</span>
-            
-          </nav>
+        {/* Navbar */}
+        <nav style={styles.nav}>
+          <span style={isActive("/patient/dashboard") ? styles.navActive : styles.navLink} onClick={() => navigate("/patient/dashboard")}>Dashboard</span>
+          <span style={isActive("/patient/records") ? styles.navActive : styles.navLink} onClick={() => navigate("/patient/records")}>View Records</span>
+          <span style={isActive("/patient/about") ? styles.navActive : styles.navLink} onClick={() => navigate("/patient/about")}>About</span>
+          <span style={isActive("/patient/contact") ? styles.navActive : styles.navLink} onClick={() => navigate("/patient/contact")}>Contact</span>
+        </nav>
 
-          <div style={styles.rightSection}>
-            <span style={{ fontSize: "0.9rem", color: "#4e974e" }}>Welcome, {currentUser?.name || "Patient"}!</span>
-            <div style={styles.notifButton}>
-              <span className="material-symbols-outlined">notifications</span>
-              <div style={styles.notifDot}></div>
-            </div>
-            <button style={styles.logoutButton} onClick={() => {
-              localStorage.removeItem("currentUser");
-              window.location.reload();
-            }}>Logout</button>
-          </div>
+        {/* Logout */}
+        <div style={styles.buttons}>
+          <span>Welcome, {currentUser?.name || "Patient"}!</span>
+          <button style={styles.logoutBtn} onClick={logout}>Logout</button>
         </div>
       </header>
 
       {/* Main */}
       <main style={styles.main}>
-        <div style={styles.container}>
-          {/* Static dashboard card */}
-          <div style={styles.card}>
-            <div style={styles.cardImage}></div>
-            <div style={styles.cardContent}>
-              <h1 style={{ fontSize: "1.75rem", fontWeight: "700" }}>Your Oculis Health Records</h1>
-              <p style={{ color: "#4e974e", fontSize: "1rem" }}>
-                Access your retinal scan history and reports securely. We are committed to protecting your privacy and providing you with clear, understandable health insights.
-              </p>
-              <button style={styles.button} onClick={() => navigate("/patient/records")}>View My Records</button>
-            </div>
-          </div>
+        <div style={styles.headingContainer}>
+          <h1 style={styles.title}>Welcome to Your Dashboard</h1>
+          <p style={styles.subtitle}>Access your retinal scan history and reports securely.</p>
+        </div>
 
-          {/* Patient-specific records */}
+        <div style={styles.container}>
           {records.length > 0 ? (
             records.map((record) => (
               <div key={record.id} style={styles.card}>
-                <div style={styles.cardImage}></div>
-                <div style={styles.cardContent}>
-                  <h3 style={{ fontSize: "1.5rem", fontWeight: "700" }}>{record.title}</h3>
-                  <p>{record.description}</p>
-                  <p>Date: {record.date}</p>
-                  <button style={styles.button}>View Record</button>
-                </div>
+                <div style={styles.cardTitle}>{record.title || record.scanType || "Patient Scan"}</div>
+                <div style={styles.cardText}>Date: {record.date}</div>
+                <div style={styles.cardText}>Status: {record.status || "Pending"}</div>
               </div>
             ))
           ) : (
@@ -121,11 +95,12 @@ const PatientDashboard = () => {
 
       {/* Footer */}
       <footer style={styles.footer}>
-        <p>© 2024 Oculis. All rights reserved.</p>
         <div style={styles.footerLinks}>
           <a href="#" style={styles.footerLink}>Privacy Policy</a>
           <a href="#" style={styles.footerLink}>Terms of Service</a>
+          <a href="#" style={styles.footerLink}>Contact</a>
         </div>
+        <p>© 2024 Oculis. All rights reserved.</p>
       </footer>
     </div>
   );
