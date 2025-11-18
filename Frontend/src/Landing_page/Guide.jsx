@@ -126,12 +126,13 @@ const HowItWorks = () => {
 
         <div style={styles.buttonContainer}>
           <button
-            style={styles.ctaButton}
-            onMouseOver={(e) => (e.target.style.transform = "scale(1.05)")}
-            onMouseOut={(e) => (e.target.style.transform = "scale(1)")}
-          >
-            Analyze a Scan Now
-          </button>
+  style={styles.ctaButton}
+  onClick={() => navigate("/doctor/upload")}
+  onMouseOver={(e) => (e.target.style.transform = "scale(1.05)")}
+  onMouseOut={(e) => (e.target.style.transform = "scale(1)")}>
+  Analyze a Scan Now
+</button>
+
         </div>
       </main>
 

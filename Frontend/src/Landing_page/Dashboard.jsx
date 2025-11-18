@@ -8,6 +8,14 @@ const Dashboard = () => {
   const location = useLocation();
 
   const isActive = (path) => location.pathname === path;
+  const sidebarLinks = [
+  { label: "Dashboard", path: "/doctor/dashboard" },
+  { label: "Upload", path: "/doctor/upload" },
+  { label: "Patient Records", path: "/doctor/patient-records" },
+  { label: "How It Works", path: "/doctor" },
+  { label: "Logout", path: "logout" }
+];
+
 
   const styles = {
     body: { fontFamily: 'Inter, "Noto Sans", sans-serif', backgroundColor: "#f8fbfa", minHeight: "100vh", display: "flex", flexDirection: "column", overflowX: "hidden" },
@@ -20,7 +28,7 @@ const Dashboard = () => {
     buttons: { display: "flex", gap: "8px" },
     logoutBtn: { backgroundColor: "rgba(26,183,115,0.2)", color: "#111", fontSize: "14px", fontWeight: "600", border: "none", borderRadius: "8px", padding: "10px 20px", cursor: "pointer" },
     profilePic: { backgroundImage: currentDoctor?.photoURL ? `url(${currentDoctor.photoURL})` : 'url("https://via.placeholder.com/40")', width: "40px", height: "40px", borderRadius: "50%", backgroundSize: "cover", backgroundPosition: "center" },
-    sidebar: { width: "300px", backgroundColor: "#f8fbfa", padding: "16px", display: "flex", flexDirection: "column", justifyContent: "space-between" },
+    sidebar: { width: "300px", backgroundColor: "#f8fbfa", padding: "15px",display: "flex", flexDirection: "column", justifyContent: "space-between" },
     sideItem: (active) => ({ display: "flex", alignItems: "center", gap: "10px", padding: "10px 14px", borderRadius: "12px", backgroundColor: active ? "#e8f3ee" : "transparent", cursor: "pointer", color: "#0e1b15", fontWeight: "500", fontSize: "14px" }),
     content: { flex: 1, padding: "24px", display: "flex", flexDirection: "column" },
     card: { backgroundColor: "#e8f3ee", borderRadius: "12px", padding: "24px", flex: "1", minWidth: "158px" },
@@ -36,16 +44,19 @@ const Dashboard = () => {
 
   // Example dynamic cards and patients per doctor
   const cards = [
-    { title: "Total Scans Analyzed", value: currentDoctor?.totalScans || "0" },
-    { title: "Normal Retinas", value: currentDoctor?.normalRetinas || "0" },
-    { title: "DME Detected", value: currentDoctor?.dmeDetected || "0" },
-    { title: "CNV Detected", value: currentDoctor?.cnvDetected || "0" },
-    { title: "Drusen Detected", value: currentDoctor?.drusenDetected || "0" },
+    { title: "Total Scans Analyzed", value: currentDoctor?.totalScans || "5" },
+    { title: "Normal Retinas", value: currentDoctor?.normalRetinas || "2" },
+    { title: "DME Detected", value: currentDoctor?.dmeDetected || "1" },
+    { title: "CNV Detected", value: currentDoctor?.cnvDetected || "1" },
+    { title: "Drusen Detected", value: currentDoctor?.drusenDetected || "1" },
   ];
 
   const patients = currentDoctor?.patients || [
-    { id: "PT12345", date: "2024-01-15", result: "Normal" },
-    { id: "PT67890", date: "2024-01-14", result: "DME Detected" },
+    { id: "PT12345", date: "2025-11-19", result: "CNV Detected" },
+    { id: "PT67890", date: "2025-11-18", result: "DME Detected" },
+     { id: "PT12341", date: "2025-11-17", result: "Normal" },
+      { id: "PT12346", date: "2025-11-16", result: "Drusen" },
+       { id: "PT12343", date: "2025-11-15", result: "Normal" },
   ];
 
   return (
@@ -95,13 +106,19 @@ const Dashboard = () => {
       {/* Main content */}
       <div style={{ display: "flex", flex: 1, padding: "20px" }}>
         {/* Sidebar */}
-        <aside style={styles.sidebar}>
-          {["Dashboard", "Upload", "Results", "Reports", "Settings"].map((item, i) => (
-            <div key={item} style={styles.sideItem(i === 0)}>
-              <span>{item}</span>
-            </div>
-          ))}
-        </aside>
+       <aside style={styles.sidebar}>
+  {sidebarLinks.map((item) => (
+    <div
+      key={item.label}
+      style={styles.sideItem(isActive(item.path))}
+      onClick={() => navigate(item.path)}
+    >
+      {item.label}
+    </div>
+  ))}
+</aside>
+
+
 
         {/* Dashboard content */}
         <main style={styles.content}>
