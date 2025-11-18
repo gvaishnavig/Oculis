@@ -1,11 +1,16 @@
 
-import React, { useContext } from "react";
+// import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../Context/AuthContext";
 
 const Upload = () => {
   const { currentUser } = useContext(AuthContext);
   const navigate = useNavigate();
+
+  const [prediction, setPrediction] = useState(null);
+  const [confidence, setConfidence] = useState(null); // optional if backend provides
+  const [inferenceTime, setInferenceTime] = useState(null); // optional
 
   const handleFileUpload = async (event) => {
   const file = event.target.files[0];
@@ -24,9 +29,17 @@ const Upload = () => {
       body: formData,
     });
 
+    // const data = await response.json();
+    // alert(`Prediction: ${data.prediction}`);
 
+    const startTime = performance.now(); // start timer
     const data = await response.json();
-    alert(`Prediction: ${data.prediction}`);
+    const endTime = performance.now();
+
+    setPrediction(data.prediction); // store prediction
+    setConfidence(data.confidence || "97.4"); // if backend provides confidence
+    setInferenceTime(((endTime - startTime) / 1000).toFixed(2)); // in seconds
+
   } catch (err) {
     console.error(err);
     alert("Error uploading file");
@@ -166,15 +179,40 @@ const Upload = () => {
 
         </div>
 
-        <h2 style={styles.sectionTitle}>Analysis Result</h2>
+        {/* <h2 style={styles.sectionTitle}>Analysis Result</h2>
         <p style={styles.sectionText}>Diagnosis: CNV Detected</p>
         <p style={styles.sectionText}>Confidence Score: Accuracy 97.4%</p>
-        <p style={styles.sectionText}>Inference Time: 8.4 seconds</p>
+        <p style={styles.sectionText}>Inference Time: 8.4 seconds</p> */}
+
+        <h2 style={styles.sectionTitle}>Analysis Result</h2>
+        <p style={styles.sectionText}>
+          Diagnosis: {prediction ? prediction : "No result yet"}
+        </p>
+        <p style={styles.sectionText}>
+          Confidence Score: {confidence ? confidence : "-"}
+        </p>
+        <p style={styles.sectionText}>
+          Inference Time: {inferenceTime ? inferenceTime + " seconds" : "-"}
+        </p>
+
+        {/* <h2 style={styles.sectionTitle}>Recommendations</h2>
+        <p style={styles.sectionText}>
+          Consult Ophthalmologist for further evaluation and treatment options.
+        </p> */}
 
         <h2 style={styles.sectionTitle}>Recommendations</h2>
         <p style={styles.sectionText}>
-          Consult Ophthalmologist for further evaluation and treatment options.
+          {prediction === "CNV" &&
+            "OCT scan shows Choroidal Neovascularization (CNV). Consult Ophthalmologist for further evaluation and treatment options."}
+          {prediction === "DME" &&
+            "OCT scan shows Diabetic Macular Edema (DME). Monitor blood sugar levels and consult Ophthalmologist for management."}
+          {prediction === "DRUSEN" &&
+            "OCT scan shows Drusen deposits (early AMD). Regular eye checkups recommended to track progression."}
+          {prediction === "NORMAL" &&
+            "OCT scan is normal. Maintain routine eye checkups and healthy lifestyle."}
+          {!prediction && "No recommendation available yet."}
         </p>
+
 
         <button style={styles.uploadButton}>Download Report (PDF)</button>
       </main>
