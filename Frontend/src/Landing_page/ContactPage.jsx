@@ -156,16 +156,16 @@ const Contact = () => {
           {/* Send Button */}
           <button style={styles.submitButton}>Send Message</button>
 
-          {/* Clinic Info */}
-          <h3 style={styles.clinicTitle}>Our Clinic</h3>
+          {/* {/* Clinic Info */}
+          {/* <h3 style={styles.clinicTitle}>Our Clinic</h3>
           <p style={styles.clinicText}>
             456 Health Avenue, Suite 789 Medical City, CA 91234
           </p>
           <p style={styles.clinicText}>(555) 987-6543</p>
-          <p style={styles.clinicText}>info@oculis.health</p>
+          <p style={styles.clinicText}>info@oculis.health</p> */}
 
           {/* Social Media */}
-          <div style={styles.socialContainer}>
+          {/* <div style={styles.socialContainer}>
             <div style={styles.socialIconBox}>
               <div style={styles.iconCircle}>
                 <svg
@@ -180,7 +180,8 @@ const Contact = () => {
               </div>
               <p style={styles.socialLabel}>LinkedIn</p>
             </div>
-          </div>
+          </div>  */}
+          
         </div>
       </main>
     </div>

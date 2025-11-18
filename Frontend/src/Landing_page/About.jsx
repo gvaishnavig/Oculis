@@ -1,6 +1,4 @@
-
-import React from "react";
-
+import React, { useState } from "react";
 
 const About = () => {
   const styles = {
@@ -49,35 +47,70 @@ const About = () => {
     },
     teamGrid: {
       display: "grid",
-      gridTemplateColumns: "repeat(auto-fit, minmax(158px, 1fr))",
-      gap: "12px",
+      gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+      gap: "18px",
       padding: "16px",
     },
-    teamCard: {
-      textAlign: "center",
-      paddingBottom: "16px",
+    teamCardBase: {
+      textAlign: "left",
+      padding: "18px 22px",
+      background: "linear-gradient(112deg,#f8fbfa 60%,#e8f3ee 120%)",
+      border: "1px solid #e8f3ee",
+      borderRadius: "12px",
+      boxShadow: "0 2px 12px rgba(80,149,119,0.07)",
+      display: "flex",
+      flexDirection: "column",
+      minHeight: "110px",
+      justifyContent: "center",
+      position: "relative",
+      transition:
+        "background 0.19s, border 0.19s, box-shadow 0.19s, transform 0.17s",
+      cursor: "pointer",
+      overflow: "visible"
     },
-    teamImageWrapper: {
-      padding: "0 16px",
+    teamCardHovered: {
+      background: "linear-gradient(112deg, #e7f4ed 60%, #d1e9e0 120%)",
+      border: "2px solid #509577",
+      boxShadow: "0 6px 24px rgba(80,149,119,0.13), 0 2px 12px rgba(80,149,119,0.08)",
+      transform: "translateY(-3px) scale(1.025)",
+      zIndex: 2,
     },
-    teamImage: (url) => ({
-      width: "100%",
-      aspectRatio: "1 / 1",
-      borderRadius: "50%",
-      backgroundImage: `url(${url})`,
-      backgroundSize: "cover",
-      backgroundPosition: "center",
-      backgroundRepeat: "no-repeat",
-    }),
     teamName: {
-      fontSize: "16px",
-      fontWeight: 500,
+      fontSize: "17px",
+      fontWeight: "bold",
       color: "#0e1b15",
-      marginTop: "8px",
+      marginBottom: "5px",
+      letterSpacing: "0.5px",
     },
     teamRole: {
-      fontSize: "14px",
+      fontSize: "15px",
       color: "#509577",
+      marginBottom: "10px",
+    },
+    teamLine: {
+      height: "2px",
+      width: "32px",
+      backgroundColor: "#e8f3ee",
+      margin: "8px 0 8px 0",
+      borderRadius: "2px",
+    },
+    // Inline popover (not modal)
+    popover: {
+      position: "absolute",
+      top: "90%",
+      left: "6%",
+      minWidth: "88%",
+      background: "#fff",
+      border: "1.5px solid #509577",
+      borderRadius: "10px",
+      padding: "14px 18px 10px",
+      boxShadow: "0 8px 32px rgba(80,149,119,0.15)",
+      color: "#222e2a",
+      fontSize: "15px",
+      lineHeight: "1.45",
+      zIndex: 10,
+      marginTop: "9px",
+      animation: "fadeIn 0.17s",
     },
     footer: {
       textAlign: "center",
@@ -98,12 +131,62 @@ const About = () => {
     },
   };
 
+  // Keyframes for fadeIn if needed for popover (best handled by .css, but shown here in comment):
+  // 
+  // @keyframes fadeIn {
+  //   from { opacity: 0; transform: translateY(7px);}
+  //   to { opacity: 1; transform: translateY(0);}
+  // }
+
+  // const teamMembers = [
+  //   {
+  //     name: "Vaishnavi Gurram",
+  //     role: "CEO",
+  //     details:
+  //       "Vaishnavi leads Oculis with a commitment to impactful AI transforming healthcare. She is passionate about ethical innovation and building collaborative teams.",
+  //   },
+  //   {
+  //     name: "Riya Patidar",
+  //     role: "CTO",
+  //     details:
+  //       "Riya architects Oculis’ AI stack. Her expertise includes scalable deep learning and cloud platforms for real-time medical analysis.",
+  //   },
+  //   {
+  //     name: "Riya Sathe",
+  //     role: "Head of Research",
+  //     details:
+  //       "Riya drives research and clinical integration at Oculis, ensuring that technological solutions meet real-world healthcare needs with rigor and integrity.",
+  //   },
+  // ];
+
+      const teamMembers = [
+        {
+          name: "Vaishnavi Gurram",
+          role: "Model Development Lead",
+          details:
+            "Vaishnavi works on the core deep learning methodology for Oculis. She focuses on model development, training, and testing, aiming to build a reliable and accurate diagnostic system.",
+        },
+        {
+          name: "Riya Patidar",
+          role: "Backend & UX Lead",
+          details:
+            "Riya contributes to database design, authentication, and overall backend structure. She also supports UI/UX design and frontend development, helping ensure a smooth and secure user experience.",
+        },
+        {
+          name: "Riya Sathe",
+          role: "Frontend Integration Lead",
+          details:
+            "Riya works on frontend development and integrates the interface with backend APIs. She helps with end-to-end testing, deployment tasks, and organizing the final project documentation.",
+        },
+      ];
+
+
+  const [hoverIndex, setHoverIndex] = useState(null);
+
   return (
     <div style={styles.container}>
-      {/* Header removed logo/title */}
       <header style={styles.header}></header>
 
-      {/* Main content */}
       <div style={styles.contentWrapper}>
         <div style={styles.content}>
           <h1 style={styles.heading}>About Oculis</h1>
@@ -126,41 +209,33 @@ const About = () => {
 
           <h2 style={styles.subHeading}>Our Team</h2>
           <div style={styles.teamGrid}>
-            <div style={styles.teamCard}>
-              <div style={styles.teamImageWrapper}>
+            {teamMembers.map((member, idx) => {
+              // Compose dynamic styles for normal and hover states
+              const cardStyle = {
+                ...styles.teamCardBase,
+                ...(hoverIndex === idx ? styles.teamCardHovered : {}),
+              };
+              return (
                 <div
-                  style={styles.teamImage(
-                    "https://lh3.googleusercontent.com/aida-public/AB6AXuBV3Hv9k0Oo0XtS1IemeXRXPq6nK-GdwbGnE9-L4A-MzNh1CTr1sRI_DjlIakg0aykENZ7g1iuoVqshyGvIR_1LZqrJ-0zUJSIcFGP2I3Z7Ez6jaDCgJ0fGy3mYxjHkKCVg8KI5AbmnyM4KJ_sz5Sof9zAcZXzpriZ71IW4qRwqpF2cLfV6eNJTePd-jpB6vHgN63ELtTpUS4H0PwF2Jxuzl_fvyOmv1p6fcODbwYd7M3bydv91hrSSTylKqvnHfKWGZMKPA7XvlCTx"
+                  key={member.name}
+                  style={cardStyle}
+                  onMouseEnter={() => setHoverIndex(idx)}
+                  onMouseLeave={() => setHoverIndex(null)}
+                  tabIndex={0}
+                  role="button"
+                  aria-label={`Details about ${member.name}`}
+                >
+                  <div style={styles.teamName}>{member.name}</div>
+                  <div style={styles.teamLine}></div>
+                  <div style={styles.teamRole}>{member.role}</div>
+                  {hoverIndex === idx && (
+                    <div style={styles.popover}>
+                      {member.details}
+                    </div>
                   )}
-                />
-              </div>
-              <p style={styles.teamName}>Vaishnavi Gurram</p>
-              <p style={styles.teamRole}>CEO</p>
-            </div>
-
-            <div style={styles.teamCard}>
-              <div style={styles.teamImageWrapper}>
-                <div
-                  style={styles.teamImage(
-                    "https://lh3.googleusercontent.com/aida-public/AB6AXuBwAVyJfTGOvibrSQjkoRei31ijw3z0XKbA2cOLpJAx3vU3D_lnFRMuDvqCwO7TkbZ8k9ALN9o7qmMD-LGmd_ce6-u4-ey-nNXMW8SV8MhnShMYZdqnZwdUN3b8Uv2MX4e8A1_Ks-fdhs2kVNMQAT0z9aLJhiuWDsi12ddoWMjJN1hWqdFeudqXR3Z8QxtLhJrW4tboIujPFMqRvzv2JpYg1_Xn127KQPRUDFnIFg6mx0113zKO3CjjBRl2gWgut_-Z_pMFvhAss9u2"
-                  )}
-                />
-              </div>
-              <p style={styles.teamName}>Riya Patidar</p>
-              <p style={styles.teamRole}>CTO</p>
-            </div>
-
-            <div style={styles.teamCard}>
-              <div style={styles.teamImageWrapper}>
-                <div
-                  style={styles.teamImage(
-                    "https://lh3.googleusercontent.com/aida-public/AB6AXuAIZeK_ks4ynx8iefdZQlpujPTSpsPyElK9sapaVYcT54jLy0QsO4mcIxvKNP3czHsFGeD05Uts5Rjtp9RG40hiIDpGAoiNgLRG1Y14NggTZbNp27xYnWNv6Wm51wUkRzpGPXXc4OfltwEXUBVsmc-CrIGM2O71zXYVwByvHNSV-RR-OWI6reaGiu7mqZitHn9gElwcYrU-UD_yGUwBdoAHgAbeLZUVP2zIbvpzO3suSk-aBn18AcDxY63ALfxgZ8M1gPxSGGNWvhrg"
-                  )}
-                />
-              </div>
-              <p style={styles.teamName}>Riya Sathe</p>
-              <p style={styles.teamRole}>Head of Research</p>
-            </div>
+                </div>
+              );
+            })}
           </div>
 
           <h2 style={styles.subHeading}>Vision & Values</h2>
@@ -173,7 +248,6 @@ const About = () => {
         </div>
       </div>
 
-      {/* Footer */}
       <footer style={styles.footer}>
         <div style={styles.footerLinks}>
           <a href="#" style={styles.footerLink}>
@@ -183,7 +257,7 @@ const About = () => {
             Terms of Service
           </a>
         </div>
-        <p>@2024 Oculis. All rights reserved.</p>
+        <p>@2025 Oculis. All rights reserved.</p>
       </footer>
     </div>
   );
