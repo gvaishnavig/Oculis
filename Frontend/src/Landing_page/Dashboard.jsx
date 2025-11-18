@@ -106,12 +106,19 @@ const Dashboard = () => {
       {/* Main content */}
       <div style={{ display: "flex", flex: 1, padding: "20px" }}>
         {/* Sidebar */}
-       <aside style={styles.sidebar}>
+      <aside style={styles.sidebar}>
   {sidebarLinks.map((item) => (
     <div
       key={item.label}
       style={styles.sideItem(isActive(item.path))}
-      onClick={() => navigate(item.path)}
+      onClick={() => {
+        if (item.label === "Logout") {
+          logout();        // call logout
+          navigate("/");  // redirect to homepage
+        } else {
+          navigate(item.path); // for normal links
+        }
+      }}
     >
       {item.label}
     </div>
