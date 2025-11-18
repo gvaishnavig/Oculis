@@ -62,6 +62,9 @@ def predict():
 
 @app.route("/predict", methods=["POST"])
 def predict():
+
+    import time
+
     if "file" not in request.files:
         return jsonify({"error": "No file uploaded"}), 400
 
@@ -100,8 +103,13 @@ def predict():
 
         x = tf.keras.utils.img_to_array(img)
         x = np.expand_dims(x, axis=0)
-        
+
+        start_time = time.time()
         predictions = MODEL.predict(x)
+        end_time = time.time()
+
+        inference_time = round((end_time - start_time) * 1000, 2)  # ms
+
         class_names = ['CNV', 'DME', 'DRUSEN', 'NORMAL']
         result = class_names[np.argmax(predictions)]
         confidence = str(round(np.max(predictions) * 100, 2)) + "%"
@@ -115,7 +123,8 @@ def predict():
         return jsonify({
             "prediction": result,
             "confidence": confidence,
-            "recommendation": recommendation
+            "recommendation": recommendation,
+            "inference_time": f"{inference_time:.2f} ms"
         })
 
     except Exception as e:

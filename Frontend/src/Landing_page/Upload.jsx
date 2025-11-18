@@ -37,8 +37,8 @@ const Upload = () => {
     const endTime = performance.now();
 
     setPrediction(data.prediction); // store prediction
-    setConfidence(data.confidence || "97.4"); // if backend provides confidence
-    setInferenceTime(((endTime - startTime) / 1000).toFixed(2)); // in seconds
+    setConfidence(data.confidence || "97.4"); //confidence
+    setInferenceTime(data.inference_time); // in ms
 
   } catch (err) {
     console.error(err);
@@ -192,7 +192,7 @@ const Upload = () => {
           Confidence Score: {confidence ? confidence : "-"}
         </p>
         <p style={styles.sectionText}>
-          Inference Time: {inferenceTime ? inferenceTime + " seconds" : "-"}
+          Inference Time: {inferenceTime ? inferenceTime : "-"}
         </p>
 
         {/* <h2 style={styles.sectionTitle}>Recommendations</h2>
